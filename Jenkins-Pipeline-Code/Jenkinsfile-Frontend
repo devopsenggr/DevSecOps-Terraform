@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     tools {
-        jdk 'jdk'
+jdk 'jdk'
         nodejs 'nodejs'
     }
     environment  {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/AmanPathak-DevOps/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/devopsenggr/DevSecOps-Terraform.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -27,8 +27,8 @@ pipeline {
                 dir('Application-Code/frontend') {
                     withSonarQubeEnv('sonar-server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=three-tier-frontend \
-                        -Dsonar.projectKey=three-tier-frontend '''
+                        -Dsonar.projectName=frontend \
+                        -Dsonar.projectKey=frontend '''
                     }
                 }
             }
@@ -82,20 +82,20 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/AmanPathak-DevOps/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/devopsenggr/DevSecOps-Terraform.git'
             }
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project"
-                GIT_USER_NAME = "AmanPathak-DevOps"
+                GIT_REPO_NAME = "DevSecOps-Terraform"
+                GIT_USER_NAME = "devopsenggr"
             }
             steps {
                 dir('Kubernetes-Manifests-file/Frontend') {
                     withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                         sh '''
-                            git config user.email "aman07pathak@gmail.com"
-                            git config user.name "AmanPathak-DevOps"
+                            git config user.email "awstraining42@gmail.com"
+                            git config user.name "devopsenggr"
                             BUILD_NUMBER=${BUILD_NUMBER}
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=frontend:)[^ ]+' deployment.yaml)
