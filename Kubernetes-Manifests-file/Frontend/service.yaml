@@ -7,6 +7,6 @@ spec:
   ports:
   - port: 3000
     protocol: TCP
-  type: LoadBalancer
+  type: NodePort
   selector:
     role: frontend
