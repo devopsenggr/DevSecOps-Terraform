@@ -25,7 +25,7 @@ spec:
       - name: ecr-registry-secret
       containers:
       - name: frontend
-        image: 590183798513.dkr.ecr.us-east-1.amazonaws.com/frontend:3
+        image: 590183798513.dkr.ecr.us-east-1.amazonaws.com/frontend:12
         imagePullPolicy: Always
         
         ports:
